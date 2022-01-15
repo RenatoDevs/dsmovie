@@ -1,9 +1,13 @@
 package com.devsuperior.dsmovie.entities;
+import java.util.HashSet;
+import java.util.Set;
+
 /*Percistence é expecificação sempre preferir as especificações*/
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,10 +23,24 @@ public class Movie {
 	private Double score;
 	private Integer count;
 	private String image;
+	
+	/*Para acessar todos os score de um certo filme apartir do filme*/
+	@OneToMany(mappedBy = "id.movie" )
+	private Set<Score> scores = new  HashSet<>();
+ 	
+	
+	
+	
 	/*Construtor Vazio */
 	public Movie() {
 		
 	}
+	
+	
+	
+	
+	
+	
 	/*Construtor para receber os argumentos*/
 	public Movie(Long id, String title, Double score, Integer count, String image) {
 		this.id = id;
@@ -63,6 +81,10 @@ public class Movie {
 	}
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public Set<Score> getScores() {
+		return scores;
 	}
 	
 	
