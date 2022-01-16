@@ -23,18 +23,21 @@ function Listing() {
   /*Hook useEffect*/
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/movies?size=12%page=${pageNumber}&sort=id`)
+      .get(`${BASE_URL}/movies?size=12&page=${pageNumber}&sort=id`)
       .then((response) => {
         const data = response.data as MoviePage;
         setPage(data);
       });
   }, [pageNumber]);
 
-  //FORMA ERRADA
+  const handlePageChange = (newPageNumber : number) =>{
+    setPageNumber(newPageNumber);
+  }
 
   return (
     <>
-      <Pagination />
+      <Pagination page={page} onChange={handlePageChange}/>
+
       <div className="container">
         <div className="row">
           {page.content.map((movie) => (
